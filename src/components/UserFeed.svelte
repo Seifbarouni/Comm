@@ -1,5 +1,5 @@
 <script>
-  export let community = "";
+  export let user = "";
   import Footer from "./Footer.svelte";
 </script>
 
@@ -15,46 +15,20 @@
       <img src="./img/user.svg" alt="user" />
     </div>
   </div>
+
   <div
-    class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"
-  >
-    <div class="bg-gray-800 text-gray-200 rounded-md flex flex-col pb-2">
-      <div class="w-full bg-black h-40  rounded-t-md" />
-      <div class="flex relative">
-        <span>
-          <div
-            class="h-24 w-24 ml-2 bg-yellow-400 rounded-full absolute -top-8"
-          />
-        </span>
-        <span class="ml-28 flex flex-col">
-          <span class="font-bold text-lg">c/{community}</span>
-          <span class="text-xs text-gray-400">c/{community}</span>
-        </span>
-      </div>
-      <div class="mt-8 ml-2 flex flex-col">
-        <span class="text-gray-400">About Community</span>
-        <span class="mt-2"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-          voluptatum optio quasi.</span
-        >
-        <div class="w-2/3 self-center mt-2 mb-1 border-b border-gray-400" />
-        <span class="text-gray-400 mt-2">Created Sep 17, 2007</span>
-      </div>
-    </div>
-  </div>
-  <div
-    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
+    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-16"
   >
     <div id="header" class="flex items-center text-sm">
       <div class="flex items-center">
         <div class="h-6 w-6 bg-indigo-400 rounded-full" />
         <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/{community}</a
+          >c/entertainment</a
         >
       </div>
       <div class="pr-1 pl-1 text-gray-400">.</div>
       <div class="text-gray-400">
-        Posted by <a href="#/u/seif" class="hover:underline">u/seif</a> 14 hours
+        Posted by <a href="#/u/{user}" class="hover:underline">u/{user}</a> 14 hours
         ago
       </div>
     </div>
@@ -75,12 +49,12 @@
       <div class="flex items-center">
         <div class="h-6 w-6 bg-indigo-400 rounded-full" />
         <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/{community}</a
+          >c/entertainment</a
         >
       </div>
       <div class="pr-1 pl-1 text-gray-400">.</div>
       <div class="text-gray-400">
-        Posted by <a href="#/u/mark" class="hover:underline">u/mark</a> 14 hours
+        Posted by <a href="#/u/{user}" class="hover:underline">u/{user}</a> 14 hours
         ago
       </div>
     </div>

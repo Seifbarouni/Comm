@@ -40,7 +40,10 @@
             >
           </div>
           <div class="pr-1 pl-1 text-gray-400">.</div>
-          <div class="text-gray-400">Posted by u/MrShronk 14 hours ago</div>
+          <div class="text-gray-400">
+            Posted by <a href="#/u/seif" class="hover:underline">u/seif</a> 14 hours
+            ago
+          </div>
         </div>
         <div id="txt" class="pt-1">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
@@ -61,7 +64,10 @@
             <a href="#/c/sports" class="px-1 hover:underline">c/sports</a>
           </div>
           <div class="pr-1 pl-1 text-gray-400">.</div>
-          <div class="text-gray-400">Posted by u/sb 1 hour ago</div>
+          <div class="text-gray-400">
+            Posted by <a href="#/u/sami" class="hover:underline">u/sami</a> 1 hour
+            ago
+          </div>
         </div>
         <div>
           <div class="pt-1 pb-1">Title of this post</div>
@@ -81,7 +87,10 @@
             <a href="#/c/movies" class="px-1 hover:underline">c/movies</a>
           </div>
           <div class="pr-1 pl-1 text-gray-400">.</div>
-          <div class="text-gray-400">Posted by u/sami 3 hours ago</div>
+          <div class="text-gray-400">
+            Posted by <a href="#/u/mark" class="hover:underline">u/mark</a> 3 hours
+            ago
+          </div>
         </div>
         <div>
           <div class="pt-1 pb-1">Title of this video post</div>
