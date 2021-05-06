@@ -4,19 +4,25 @@
 </script>
 
 <div class=" 2xl:w-3/5 w-full flex flex-col mb-2">
-  <div class="pt-6 self-center w-full px-1 flex items-center justify-center">
-    <input
-      type="text"
-      class="bg-gray-600 px-2 py-2 w-full focus:outline-none text-white rounded-md placeholder-gray-200"
-      placeholder="Search for users or communities"
-    />
+  <div class="pt-6 self-center w-full  flex  justify-center items-center">
+    <a href="#/" class="text-red-500 pt-1 pr-2 h-10 w-10 sm:hidden">
+      <img src="./img/logo.png" alt="" />
+    </a>
+    <div class="sm:w-full w-5/6">
+      <input
+        type="text"
+        class="bg-gray-600 px-2 py-2 w-full  focus:outline-none text-white rounded-md placeholder-gray-200"
+        placeholder="Search for users or communities"
+      />
+    </div>
 
-    <div class="pl-2 h-8 w-8 pt-1 rounded-full  xl:hidden">
+    <div class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden">
       <img src="./img/user.svg" alt="user" />
     </div>
   </div>
 
-  <div
+  <a
+    href="#/c/entertainment/p/s12dsfsdf45s"
     class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-16"
   >
     <div id="header" class="flex items-center text-sm">
@@ -41,8 +47,9 @@
       >
     </div>
     <Footer likes="2.4k" comments="1k" />
-  </div>
-  <div
+  </a>
+  <a
+    href="#/c/entertainment/p/s12dsf45s"
     class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
   >
     <div id="header" class="flex items-center text-sm">
@@ -67,5 +74,5 @@
       >
     </div>
     <Footer likes="2.4k" comments="1k" />
-  </div>
+  </a>
 </div>

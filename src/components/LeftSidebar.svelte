@@ -1,7 +1,7 @@
 <div
   class="text-gray-200 w-auto lg:text-base text-sm sm:flex sm:flex-col mr-4 hidden"
 >
-  <a href="#/" class="text-red-500 font-bold pt-6 pl-2 text-lg ">
+  <a href="#/" class="text-red-500  pt-6 pl-2">
     <img src="./img/logo.png" alt="" height="40px" width="40px" />
   </a>
 
