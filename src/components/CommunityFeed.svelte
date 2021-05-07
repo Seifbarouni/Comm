@@ -37,13 +37,47 @@
         </span>
       </div>
       <div class="mt-8 ml-2 flex flex-col">
-        <span class="text-gray-400">About Community</span>
+        <span class="text-gray-400 flex items-center">
+          <span class="pr-1">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              /></svg
+            >
+          </span>
+          <span>About Community</span>
+        </span>
         <span class="mt-2"
           >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
           voluptatum optio quasi.</span
         >
         <div class="w-2/3 self-center mt-2 mb-1 border-b border-gray-600" />
-        <span class="text-gray-400 mt-2">Created Sep 17, 2007</span>
+        <span class="text-gray-400 mt-2 flex items-center">
+          <span class="pr-1">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"
+              /></svg
+            >
+          </span>
+          <span>Created Sep 17, 2007</span>
+        </span>
       </div>
     </div>
   </div>

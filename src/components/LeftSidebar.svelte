@@ -1,3 +1,7 @@
+<script>
+  export let margin = "mt-24";
+</script>
+
 <div
   class="text-gray-200 w-auto lg:text-base text-sm sm:flex sm:flex-col mr-4 hidden"
 >
@@ -8,7 +12,7 @@
   <div class="hidden 2xl:flex   pl-2 font-bold mt-16 pt-2">
     Your communities
   </div>
-  <div class="2xl:hidden  mt-24 pt-2 pl-2" />
+  <div class="2xl:hidden  {margin} pt-2 pl-2" />
   <div class="flex flex-col pl-2 pt-4">
     <a href="#/c/entertainment" class="flex items-center pt-6 cursor-pointer">
       <div class="h-8 w-8  rounded-full">
