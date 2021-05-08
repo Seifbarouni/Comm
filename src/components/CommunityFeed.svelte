@@ -1,4 +1,6 @@
 <script>
+  import { onDestroy } from "svelte";
+
   import Footer from "./Footer.svelte";
   export let community = "";
 </script>
@@ -24,12 +26,12 @@
     class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"
   >
     <div class="bg-gray-800 text-gray-200 rounded-md flex flex-col pb-2">
-      <div class="w-full bg-black h-40  rounded-t-md" />
+      <div class="w-full bg-pink-300 h-40  rounded-t-md" />
       <div class="flex relative">
         <span>
-          <div
-            class="h-24 w-24 ml-2 bg-yellow-400 rounded-full absolute -top-8"
-          />
+          <div class="h-24 w-24 ml-2 rounded-full absolute -top-9">
+            <img src="./img/{community}.svg" alt="" />
+          </div>
         </span>
         <span class="ml-28 flex flex-col">
           <span class="font-bold text-lg">c/{community}</span>

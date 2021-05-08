@@ -16,29 +16,29 @@
   <div class="flex flex-col pl-2 pt-4">
     <a href="#/c/entertainment" class="flex items-center pt-6 cursor-pointer">
       <div class="h-8 w-8  rounded-full">
-        <img src="./img/video.svg" alt="video" />
+        <img src="./img/entertainment.svg" alt="video" />
       </div>
       <div class="hidden 2xl:flex  px-2 font-bold hover:underline">
-        Entertainment
+        entertainment
       </div>
     </a>
     <a href="#/c/sports" class="flex items-center pt-4 cursor-pointer">
       <div class="h-8 w-8  rounded-full">
         <img src="./img/sports.svg" alt="sports" />
       </div>
-      <div class="hidden 2xl:flex px-2 font-bold hover:underline ">Sports</div>
+      <div class="hidden 2xl:flex px-2 font-bold hover:underline ">sports</div>
     </a>
     <a href="#/c/reading" class="flex items-center pt-4 cursor-pointer">
       <div class="h-8 w-8 rounded-full">
-        <img src="./img/book.svg" alt="book" />
+        <img src="./img/reading.svg" alt="book" />
       </div>
-      <div class="hidden 2xl:flex px-2 font-bold hover:underline">Reading</div>
+      <div class="hidden 2xl:flex px-2 font-bold hover:underline">reading</div>
     </a>
     <a href="#/c/imdb" class="flex items-center pt-4 cursor-pointer">
       <div class="h-8 w-8  rounded-full">
         <img src="./img/imdb.svg" alt="imdb" />
       </div>
-      <div class="hidden 2xl:flex  px-2 font-bold hover:underline">Imdb</div>
+      <div class="hidden 2xl:flex  px-2 font-bold hover:underline">imdb</div>
     </a>
   </div>
 </div>
