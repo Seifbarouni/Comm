@@ -1,3 +1,36 @@
+<script>
+  let username = "";
+  let password = "";
+  let loading = false;
+  async function fetchRequest(url, us, pass) {
+    const payload = {
+      username: us,
+      password: pass,
+    };
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return await res.json();
+  }
+  async function loginUser() {
+    if (username != "" && password != "") {
+      loading = true;
+      let data = await fetchRequest(
+        "http://localhost:9000/auth",
+        username,
+        password
+      );
+      alert(data.jwt);
+      username = password = "";
+      loading = false;
+    }
+  }
+</script>
+
 <svelte:head>
   <title>Comm | Login/Register</title>
 </svelte:head>
@@ -20,22 +53,28 @@
   >
     <div class="bg-gray-800 flex flex-col rounded-md p-2 sm:w-72 w-full">
       <div class="text-lg font-bold ml-2 mt-2">Log in</div>
-      <form action="" class="flex flex-col p-4">
-        <label for="username">Username</label>
+      <form
+        action=""
+        class="flex flex-col p-4"
+        on:submit|preventDefault={loginUser}
+      >
+        <label for="username_login">Username</label>
         <input
           type="text"
-          id="username"
+          id="username_login"
+          bind:value={username}
           class="bg-gray-600 px-2 py-1 w-full  focus:outline-none text-white rounded-md placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
         />
-        <label for="pass">Password</label>
+        <label for="pass_log">Password</label>
         <input
           type="password"
-          id="pass"
+          id="pass_log"
+          bind:value={password}
           class="bg-gray-600 px-2 py-1 w-full  focus:outline-none text-white rounded-md placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
         />
         <button
           class="bg-red-500 hover:bg-red-400 px-2 py-2 rounded-md mt-4 font-bold focus:outline-none"
-          >Log in</button
+          type="submit">Log in</button
         >
       </form>
     </div>
