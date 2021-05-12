@@ -3,6 +3,12 @@
   import { user } from "../stores.js";
 
   export let community = "";
+  let join = "Join";
+
+  function joinCommunity() {
+    if (join == "Join") join = "Joined";
+    else join = "Join";
+  }
 
   function Logout() {
     user.set({
@@ -42,7 +48,13 @@
     class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"
   >
     <div class="bg-gray-800 text-gray-200 rounded-md flex flex-col pb-2">
-      <div class="w-full bg-pink-300 h-40  rounded-t-md" />
+      <div class="rounded-t-md bg-contain ">
+        <img
+          src="./img/bg.jpg"
+          class="rounded-md h-20 w-full object-cover"
+          alt=""
+        />
+      </div>
       <div class="flex relative">
         <span>
           <div class="h-24 w-24 ml-2 rounded-full absolute -top-9">
@@ -53,6 +65,12 @@
           <span class="font-bold text-lg">c/{community}</span>
           <span class="text-xs text-gray-400">c/{community}</span>
         </span>
+        <button
+          class="{join == 'Join'
+            ? 'bg-red-500 hover:bg-red-400'
+            : 'border-2 border-red-500'} px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
+          on:click={joinCommunity}>{join}</button
+        >
       </div>
       <div class="mt-8 ml-2 flex flex-col">
         <span class="text-gray-400 flex items-center">
@@ -76,6 +94,9 @@
         <span class="mt-2"
           >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
           voluptatum optio quasi.</span
+        >
+        <span class="mt-2 font-bold"
+          >3.5m<span class="text-gray-400 ml-1 font-normal">members</span></span
         >
         <div class="w-2/3 self-center mt-2 mb-1 border-b border-gray-600" />
         <span class="text-gray-400 mt-2 flex items-center">
@@ -105,7 +126,9 @@
   >
     <div id="header" class="flex items-center text-sm">
       <div class="flex items-center">
-        <div class="h-6 w-6 bg-indigo-400 rounded-full" />
+        <div class="h-6 w-6  rounded-full">
+          <img src="./img/{community}.svg" alt="" />
+        </div>
         <a href="#/c/entertainment" class="px-1 hover:underline"
           >c/{community}</a
         >
@@ -132,7 +155,9 @@
   >
     <div id="header" class="flex items-center text-sm">
       <div class="flex items-center">
-        <div class="h-6 w-6 bg-indigo-400 rounded-full" />
+        <div class="h-6 w-6  rounded-full">
+          <img src="./img/{community}.svg" alt="" />
+        </div>
         <a href="#/c/entertainment" class="px-1 hover:underline"
           >c/{community}</a
         >

@@ -57,7 +57,11 @@
   <div class="mt-16  text-gray-200  pr-1  flex flex-col  justify-between pb-2">
     <div class=" pl-4 flex justify-between  items-center">
       <div class="font-bold">Your feed</div>
-      <div>
+      <div class="flex">
+        <button
+          class="bg-blue-500 px-4 py-2 mr-1  rounded-md font-bold hover:bg-blue-400 focus:outline-none"
+          >Create community</button
+        >
         <button
           class="bg-red-500 px-4 py-2  rounded-md font-bold hover:bg-red-400 focus:outline-none"
           on:click|preventDefault={() => isOpen.set(true)}>New post</button
@@ -73,7 +77,9 @@
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6 bg-indigo-400 rounded-full" />
+              <div class="h-6 w-6  rounded-full">
+                <img src="./img/entertainment.svg" alt="" />
+              </div>
               <a href="#/c/entertainment" class="px-1 hover:underline"
                 >c/entertainment</a
               >
@@ -100,7 +106,9 @@
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6 bg-yellow-400 rounded-full" />
+              <div class="h-6 w-6  rounded-full">
+                <img src="./img/sports.svg" alt="" />
+              </div>
               <a href="#/c/sports" class="px-1 hover:underline">c/sports</a>
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
@@ -124,8 +132,10 @@
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6 bg-blue-500 rounded-full" />
-              <a href="#/c/movies" class="px-1 hover:underline">c/movies</a>
+              <div class="h-6 w-6  rounded-full">
+                <img src="./img/marvel.svg" alt="" />
+              </div>
+              <a href="#/c/marvel" class="px-1 hover:underline">c/marvel</a>
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
             <div class="text-gray-400">

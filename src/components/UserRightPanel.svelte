@@ -61,9 +61,9 @@
           class="flex items-center mt-4  hover:bg-gray-600 px-1 py-1 rounded-md cursor-pointer"
         >
           <div class="h-8 w-8 rounded-full">
-            <img src="./img/fandom.svg" alt="fandom" />
+            <img src="./img/marvel.svg" alt="marvel" />
           </div>
-          <div class="px-2 font-bold">Fandom</div>
+          <div class="px-2 font-bold">Marvel</div>
         </div>
 
         <div
