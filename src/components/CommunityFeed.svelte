@@ -1,8 +1,21 @@
 <script>
-  import { onDestroy } from "svelte";
-
   import Footer from "./Footer.svelte";
+  import { user } from "../stores.js";
+
   export let community = "";
+
+  function Logout() {
+    user.set({
+      isAuthenticated: false,
+      username: "",
+      userId: 0,
+      bio: "",
+      followers: 0,
+      following: 0,
+      jwt: "",
+    });
+    localStorage.removeItem("us");
+  }
 </script>
 
 <div class=" 2xl:w-3/5 w-full flex flex-col mb-2">
@@ -18,9 +31,12 @@
       />
     </div>
 
-    <div class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden">
+    <button
+      class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden focus:outline-none"
+      on:click={Logout}
+    >
       <img src="./img/user.svg" alt="user" />
-    </div>
+    </button>
   </div>
   <div
     class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"

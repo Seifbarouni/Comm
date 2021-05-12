@@ -1,7 +1,7 @@
 <script>
   import Footer from "./Footer.svelte";
   import NewPostModal from "./NewPostModal.svelte";
-  import { isOpen } from "../stores.js";
+  import { isOpen, user } from "../stores.js";
   import { onMount } from "svelte";
 
   let vid = "./videos/loki.mp4";
@@ -15,6 +15,18 @@
       loading = false;
     }, 1000);
   });
+  function Logout() {
+    user.set({
+      isAuthenticated: false,
+      username: "",
+      userId: 0,
+      bio: "",
+      followers: 0,
+      following: 0,
+      jwt: "",
+    });
+    localStorage.removeItem("us");
+  }
 </script>
 
 {#if $isOpen}
@@ -34,9 +46,12 @@
       />
     </div>
 
-    <div class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden">
+    <button
+      class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden focus:outline-none"
+      on:click={Logout}
+    >
       <img src="./img/user.svg" alt="user" />
-    </div>
+    </button>
   </div>
 
   <div class="mt-16  text-gray-200  pr-1  flex flex-col  justify-between pb-2">

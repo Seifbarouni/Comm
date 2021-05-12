@@ -12,8 +12,6 @@ export default {
 
     "/u/:username": User,
 
-    "/x/loginregister": LoginRegister,
-
     "/c/:community/p/:postid": Post,
 
     "*": NotFound
