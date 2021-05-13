@@ -11,3 +11,5 @@ export const user = writable({
     following: 0,
     jwt: ""
 })
+export const myCommunities = writable(null)
+export const CommunityData = writable({})

@@ -7,8 +7,21 @@
   import { onMount } from "svelte";
 
   export let params = {};
-
+  let commData = {};
+  let myHeaders = new Headers();
+  let loading = false;
+  let commName = params.community;
+  async function getCommunity() {
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${$user.jwt}`);
+    const res = await fetch(`http://localhost:9000/community/${commName}`, {
+      headers: myHeaders,
+    });
+    myHeaders = {};
+    return await res.json();
+  }
   onMount(() => {
+    loading = true;
     window.scrollTo(0, 0);
     let cachedData = localStorage.getItem("us");
     if (cachedData) {
@@ -18,7 +31,23 @@
         user.set(cachedData.data);
       }
     }
+    getCommunity().then((data) => {
+      commData = data;
+    });
+    loading = false;
   });
+  $: {
+    loading = true;
+    fetch(`http://localhost:9000/community/${params.community}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => (commData = data));
+    loading = false;
+  }
 </script>
 
 <svelte:head>
@@ -27,7 +56,20 @@
 
 {#if $user.isAuthenticated}
   <LeftSidebar />
-  <CommunityFeed community={params.community} />
+  {#if !loading}
+    <CommunityFeed
+      communityName={params.community}
+      imgUrl={commData.imgUrl}
+      createdAt={commData.createdAt}
+      members={commData.members}
+      about={commData.about}
+    />
+  {:else}
+    <div class="flex items-center justify-center 2xl:w-3/5">
+      <img src="./img/spinner.gif" alt="" class="h-14  w-14" />
+    </div>
+  {/if}
+
   <RightPanel />
 {:else}
   <LoginRegister />

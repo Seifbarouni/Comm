@@ -1,8 +1,13 @@
 <script>
   import Footer from "./Footer.svelte";
-  import { user } from "../stores.js";
 
-  export let community = "";
+  import { user, CommunityData } from "../stores.js";
+
+  export let communityName = "";
+  export let imgUrl;
+  export let members;
+  export let createdAt;
+  export let about;
   let join = "Join";
 
   function joinCommunity() {
@@ -48,7 +53,7 @@
     class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"
   >
     <div class="bg-gray-800 text-gray-200 rounded-md flex flex-col pb-2">
-      <div class="rounded-t-md bg-contain ">
+      <div class="rounded-t-md bg-contain">
         <img
           src="./img/bg.jpg"
           class="rounded-md h-20 w-full object-cover"
@@ -57,13 +62,15 @@
       </div>
       <div class="flex relative">
         <span>
-          <div class="h-24 w-24 ml-2 rounded-full absolute -top-9">
-            <img src="./img/{community}.svg" alt="" />
+          <div
+            class="h-24 w-24 rounded-full flex justify-center absolute -top-9 ml-2"
+          >
+            <img src={imgUrl} class=" object-cover rounded-full" alt="" />
           </div>
         </span>
         <span class="ml-28 flex flex-col">
-          <span class="font-bold text-lg">c/{community}</span>
-          <span class="text-xs text-gray-400">c/{community}</span>
+          <span class="font-bold text-lg">c/{communityName}</span>
+          <span class="text-xs text-gray-400">c/{communityName}</span>
         </span>
         <button
           class="{join == 'Join'
@@ -91,12 +98,11 @@
           </span>
           <span>About Community</span>
         </span>
-        <span class="mt-2"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-          voluptatum optio quasi.</span
-        >
+        <span class="mt-2">{about}</span>
         <span class="mt-2 font-bold"
-          >3.5m<span class="text-gray-400 ml-1 font-normal">members</span></span
+          >{members}<span class="text-gray-400 ml-1 font-normal"
+            >member{members == 1 ? "" : "s"}</span
+          ></span
         >
         <div class="w-2/3 self-center mt-2 mb-1 border-b border-gray-600" />
         <span class="text-gray-400 mt-2 flex items-center">
@@ -115,22 +121,22 @@
               /></svg
             >
           </span>
-          <span>Created Sep 17, 2007</span>
+          <span>Created {createdAt}</span>
         </span>
       </div>
     </div>
   </div>
   <a
-    href="#/c/{community}/p/s12dsqdxxf45s"
+    href="#/c/{communityName}/p/s12dsqdxxf45s"
     class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
   >
     <div id="header" class="flex items-center text-sm">
       <div class="flex items-center">
-        <div class="h-6 w-6  rounded-full">
-          <img src="./img/{community}.svg" alt="" />
+        <div class="h-6 w-6 rounded-full flex justify-center">
+          <img src={imgUrl} class=" object-cover rounded-full" alt="" />
         </div>
-        <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/{community}</a
+        <a href="#/c/{communityName}" class="px-1 hover:underline"
+          >c/{communityName}</a
         >
       </div>
       <div class="pr-1 pl-1 text-gray-400">.</div>
@@ -150,16 +156,16 @@
     <Footer likes="2.4k" comments="1k" />
   </a>
   <a
-    href="#/c/{community}/p/s12dsf45sd4s"
+    href="#/c/{communityName}/p/s12dsf45sd4s"
     class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
   >
     <div id="header" class="flex items-center text-sm">
       <div class="flex items-center">
-        <div class="h-6 w-6  rounded-full">
-          <img src="./img/{community}.svg" alt="" />
+        <div class="h-6 w-6 rounded-full flex justify-center">
+          <img src={imgUrl} class=" object-cover rounded-full" alt="" />
         </div>
-        <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/{community}</a
+        <a href="#/c/{communityName}" class="px-1 hover:underline"
+          >c/{communityName}</a
         >
       </div>
       <div class="pr-1 pl-1 text-gray-400">.</div>

@@ -1,5 +1,28 @@
 <script>
+  import { user, myCommunities } from "../stores.js";
+  import { onMount } from "svelte";
   export let margin = "mt-24";
+  let myHeaders = new Headers();
+  let communities = [];
+  async function getMyCommunities() {
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${$user.jwt}`);
+    const res = await fetch(
+      `http://localhost:9000/mycommunities/${$user.userId}`,
+      {
+        headers: myHeaders,
+      }
+    );
+    return await res.json();
+  }
+  onMount(() => {
+    getMyCommunities().then((data) => {
+      data.forEach((element) => {
+        communities.push(element);
+        communities = communities;
+      });
+    });
+  });
 </script>
 
 <div
@@ -14,31 +37,27 @@
   </div>
   <div class="2xl:hidden  {margin} pt-2 pl-2" />
   <div class="flex flex-col pl-2 pt-4">
-    <a href="#/c/entertainment" class="flex items-center pt-6 cursor-pointer">
-      <div class="h-8 w-8  rounded-full">
-        <img src="./img/entertainment.svg" alt="video" />
-      </div>
-      <div class="hidden 2xl:flex  px-2 font-bold hover:underline">
-        entertainment
-      </div>
-    </a>
-    <a href="#/c/sports" class="flex items-center pt-4 cursor-pointer">
-      <div class="h-8 w-8  rounded-full">
-        <img src="./img/sports.svg" alt="sports" />
-      </div>
-      <div class="hidden 2xl:flex px-2 font-bold hover:underline ">sports</div>
-    </a>
-    <a href="#/c/reading" class="flex items-center pt-4 cursor-pointer">
-      <div class="h-8 w-8 rounded-full">
-        <img src="./img/reading.svg" alt="book" />
-      </div>
-      <div class="hidden 2xl:flex px-2 font-bold hover:underline">reading</div>
-    </a>
-    <a href="#/c/imdb" class="flex items-center pt-4 cursor-pointer">
-      <div class="h-8 w-8  rounded-full">
-        <img src="./img/imdb.svg" alt="imdb" />
-      </div>
-      <div class="hidden 2xl:flex  px-2 font-bold hover:underline">imdb</div>
-    </a>
+    {#each communities as community, index (community.id)}
+      <a
+        href="#/c/{community.name}"
+        class="flex items-center pt-6 cursor-pointer"
+      >
+        <div class="h-8 w-8 rounded-full flex justify-center">
+          <img
+            src={community.imgUrl}
+            class=" object-cover rounded-full"
+            alt=""
+          />
+        </div>
+        <div class="hidden 2xl:flex  px-2 font-bold hover:underline">
+          {community.name}
+        </div>
+      </a>
+    {/each}
   </div>
 </div>
+
+<!-- 
+  to get photo url
+  https://api.unsplash.com/photos/PHOTOID/?client_id=34R6E3W0ASu2wvyCxpt4FlQaFHQwxTsOaBxr1CxCSFA
+ -->
