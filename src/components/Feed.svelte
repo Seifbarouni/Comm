@@ -77,8 +77,12 @@
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6  rounded-full">
-                <img src="./img/entertainment.svg" alt="" />
+              <div class="h-6 w-6  rounded-full flex justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMzA1MTZ8MHwxfGFsbHx8fHx8fHx8fDE2MjA4NDk5MTI&ixlib=rb-1.2.1&q=80&w=400"
+                  class="rounded-full object-cover"
+                  alt=""
+                />
               </div>
               <a href="#/c/entertainment" class="px-1 hover:underline"
                 >c/entertainment</a
@@ -106,9 +110,14 @@
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6  rounded-full">
-                <img src="./img/sports.svg" alt="" />
+              <div class="h-6 w-6  rounded-full flex justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1471295253337-3ceaaedca402?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyMzA1MTZ8MHwxfGFsbHx8fHx8fHx8fDE2MjA4NTEzMTE&ixlib=rb-1.2.1&q=85"
+                  class="rounded-full object-cover"
+                  alt=""
+                />
               </div>
+
               <a href="#/c/sports" class="px-1 hover:underline">c/sports</a>
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
@@ -127,13 +136,20 @@
         </a>
 
         <a
-          href="#/c/movies/p/sdf111sd44448"
+          href="#/c/marvel/p/sdf111sd44448"
           class="bg-gray-800 hover:bg-gray-700 cursor-pointer mt-2 p-2 rounded-md"
         >
           <div id="header" class="flex items-center text-sm">
             <div class="flex items-center">
-              <div class="h-6 w-6  rounded-full">
-                <img src="./img/marvel.svg" alt="" />
+              <div
+                class="h-6 w-6  rounded-full
+              flex justify-center"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyMzA1MTZ8MHwxfGFsbHx8fHx8fHx8fDE2MjA5NzUwMDk&ixlib=rb-1.2.1&q=85"
+                  class="rounded-full object-cover"
+                  alt=""
+                />
               </div>
               <a href="#/c/marvel" class="px-1 hover:underline">c/marvel</a>
             </div>

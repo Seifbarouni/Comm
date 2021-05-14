@@ -37,7 +37,7 @@
   </div>
   <div class="2xl:hidden  {margin} pt-2 pl-2" />
   <div class="flex flex-col pl-2 pt-4">
-    {#each communities as community, index (community.id)}
+    {#each communities as community, i (community.id)}
       <a
         href="#/c/{community.name}"
         class="flex items-center pt-6 cursor-pointer"
