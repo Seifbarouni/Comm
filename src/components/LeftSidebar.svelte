@@ -4,24 +4,45 @@
   export let margin = "mt-24";
   let myHeaders = new Headers();
   let communities = [];
-  async function getMyCommunities() {
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${$user.jwt}`);
-    const res = await fetch(
-      `http://localhost:9000/mycommunities/${$user.userId}`,
-      {
+  let expired;
+  function getMyCommunities() {
+    function makeRequest() {
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${$user.jwt}`);
+      fetch(`http://localhost:9000/mycommunities/${$user.userId}`, {
         headers: myHeaders,
-      }
-    );
-    return await res.json();
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((element) => {
+            communities.push(element);
+            communities = communities;
+          });
+          myCommunities.set(communities);
+          let dataToBeCached = {
+            data: $myCommunities,
+            cacheTime: parseInt(Date.now() / 1000),
+          };
+          myCommunities.subscribe((value) => {
+            if (value)
+              localStorage.setItem("my_comm", JSON.stringify(dataToBeCached));
+          });
+        });
+    }
+    let cacheLife = 900;
+    let cachedData = localStorage.getItem("my_comm");
+    if (cachedData) {
+      cachedData = JSON.parse(cachedData);
+      expired = parseInt(Date.now() / 1000) - cachedData.cacheTime > cacheLife;
+    }
+    if (cachedData && !expired) {
+      $myCommunities = cachedData.data;
+    } else {
+      makeRequest();
+    }
   }
   onMount(() => {
-    getMyCommunities().then((data) => {
-      data.forEach((element) => {
-        communities.push(element);
-        communities = communities;
-      });
-    });
+    getMyCommunities();
   });
 </script>
 
@@ -37,7 +58,7 @@
   </div>
   <div class="2xl:hidden  {margin} pt-2 pl-2" />
   <div class="flex flex-col pl-2 pt-4">
-    {#each communities as community, i (community.id)}
+    {#each $myCommunities as community}
       <a
         href="#/c/{community.name}"
         class="flex items-center pt-6 cursor-pointer"

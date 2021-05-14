@@ -1,20 +1,18 @@
 <script>
   import Footer from "./Footer.svelte";
 
-  import { user, CommunityData } from "../stores.js";
+  import { user } from "../stores.js";
 
   export let communityName = "";
   export let imgUrl;
   export let members;
   export let createdAt;
   export let about;
-  let join = "Join";
+  export let isMember;
 
   function joinCommunity() {
-    if (join == "Join") join = "Joined";
-    else join = "Join";
+    isMember = !isMember;
   }
-
   function Logout() {
     user.set({
       isAuthenticated: false,
@@ -72,12 +70,18 @@
           <span class="font-bold text-lg">c/{communityName}</span>
           <span class="text-xs text-gray-400">c/{communityName}</span>
         </span>
-        <button
-          class="{join == 'Join'
-            ? 'bg-red-500 hover:bg-red-400'
-            : 'border-2 border-red-500'} px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
-          on:click={joinCommunity}>{join}</button
-        >
+        {#if isMember == true}
+          <button
+            class="border-2 border-red-500 px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
+            on:click={joinCommunity}>Joined</button
+          >
+        {:else}
+          <button
+            class="bg-red-500 hover:bg-red-400
+             px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
+            on:click={joinCommunity}>Join</button
+          >
+        {/if}
       </div>
       <div class="mt-8 ml-2 flex flex-col">
         <span class="text-gray-400 flex items-center">

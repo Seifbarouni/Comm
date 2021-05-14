@@ -3,13 +3,14 @@
   import LeftSidebar from "./LeftSidebar.svelte";
   import CommunityFeed from "./CommunityFeed.svelte";
   import LoginRegister from "./LoginRegister.svelte";
-  import { user } from "../stores";
+  import { user, myCommunities } from "../stores";
   import { onMount } from "svelte";
 
   export let params = {};
   let commData = {};
   let myHeaders = new Headers();
   let loading = false;
+  let isMember;
   let commName = params.community;
   async function getCommunity() {
     myHeaders.append("Content-Type", "application/json");
@@ -19,6 +20,11 @@
     });
     myHeaders = {};
     return await res.json();
+  }
+  function checkIfMember() {
+    let res = $myCommunities.find((comm) => comm.name == params.community);
+    if (res) isMember = true;
+    else isMember = false;
   }
   onMount(() => {
     loading = true;
@@ -34,6 +40,7 @@
     getCommunity().then((data) => {
       commData = data;
     });
+    checkIfMember();
     loading = false;
   });
   $: {
@@ -46,6 +53,7 @@
     })
       .then((res) => res.json())
       .then((data) => (commData = data));
+    checkIfMember();
     loading = false;
   }
 </script>
@@ -63,6 +71,7 @@
       createdAt={commData.createdAt}
       members={commData.members}
       about={commData.about}
+      {isMember}
     />
   {:else}
     <div class="flex items-center justify-center 2xl:w-3/5">
