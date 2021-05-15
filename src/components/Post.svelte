@@ -28,6 +28,8 @@
       jwt: "",
     });
     localStorage.removeItem("us");
+    localStorage.removeItem("my_comm");
+    localStorage.removeItem("exp_comm");
   }
 </script>
 

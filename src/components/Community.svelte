@@ -25,6 +25,7 @@
     let res = $myCommunities.find((comm) => comm.name == params.community);
     if (res) isMember = true;
     else isMember = false;
+    localStorage.setItem("is_member", isMember);
   }
   onMount(() => {
     loading = true;
@@ -71,6 +72,7 @@
       createdAt={commData.createdAt}
       members={commData.members}
       about={commData.about}
+      communityId={commData.id}
       {isMember}
     />
   {:else}

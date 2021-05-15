@@ -82,7 +82,7 @@
 </script>
 
 <svelte:head>
-  <title>Comm | Login/Register</title>
+  <title>Comm</title>
 </svelte:head>
 
 <div class="flex flex-col text-gray-200  justify-center items-center mt-6">

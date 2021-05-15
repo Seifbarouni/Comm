@@ -1,17 +1,78 @@
 <script>
+  import { user, myCommunities, myExploreCommunities } from "../stores.js";
   import Footer from "./Footer.svelte";
-
-  import { user } from "../stores.js";
 
   export let communityName = "";
   export let imgUrl;
   export let members;
   export let createdAt;
   export let about;
+  export let communityId;
   export let isMember;
+  let myComms = [];
+  let myExploreComms = [];
+
+  function makejRequest(url) {
+    fetch(`${url}/${communityId}/${$user.userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data != "Success") alert(data);
+        else {
+          localStorage.removeItem("my_comm");
+          localStorage.removeItem("exp_comm");
+        }
+      });
+  }
 
   function joinCommunity() {
     isMember = !isMember;
+    myComms = $myCommunities;
+    myComms.push({
+      id: communityId,
+      name: communityName,
+      imgUrl: imgUrl,
+      members: members,
+      about: about,
+      createdAt: createdAt,
+    });
+    myCommunities.set(myComms);
+    myExploreCommunities.set(
+      $myExploreCommunities.filter((comm) => comm.id != communityId)
+    );
+    makejRequest("http://localhost:9000/j/joinCommunity");
+    updateLocalStorage();
+  }
+  function leaveCommunity() {
+    isMember = !isMember;
+    myExploreComms = $myExploreCommunities;
+    myExploreComms.push({
+      id: communityId,
+      name: communityName,
+      imgUrl: imgUrl,
+      members: members,
+      about: about,
+      createdAt: createdAt,
+    });
+    myExploreCommunities.set(myExploreComms);
+    myCommunities.set($myCommunities.filter((comm) => comm.id != communityId));
+    makejRequest("http://localhost:9000/j/leaveCommunity");
+    updateLocalStorage();
+  }
+
+  function updateLocalStorage() {
+    let cachedData = localStorage.getItem("my_comm");
+    cachedData = JSON.parse(cachedData);
+    cachedData.data = $myCommunities;
+    localStorage.setItem("my_comm", JSON.stringify(cachedData));
+    cachedData = localStorage.getItem("exp_comm");
+    cachedData = JSON.parse(cachedData);
+    cachedData.data = $myExploreCommunities;
+    localStorage.setItem("exp_comm", JSON.stringify(cachedData));
   }
   function Logout() {
     user.set({
@@ -24,6 +85,8 @@
       jwt: "",
     });
     localStorage.removeItem("us");
+    localStorage.removeItem("my_comm");
+    localStorage.removeItem("exp_comm");
   }
 </script>
 
@@ -73,7 +136,7 @@
         {#if isMember == true}
           <button
             class="border-2 border-red-500 px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
-            on:click={joinCommunity}>Joined</button
+            on:click={leaveCommunity}>Joined</button
           >
         {:else}
           <button
