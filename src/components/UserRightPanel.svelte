@@ -5,7 +5,7 @@
 
   export let username = "";
   let userData = {};
-  let isFollowing = false;
+  let isFollowing = true;
   let loading = false;
 
   function Logout() {
@@ -40,6 +40,16 @@
   function unfollow() {
     isFollowing = !isFollowing;
     userData.followers--;
+    fetch(`http://localhost:9000/unfollow/${$user.userId}/${userData.id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data);
+      });
   }
   onMount(() => {
     loading = true;
@@ -96,7 +106,8 @@
         <div class="flex text-sm pt-2">
           <div>
             <span class="font-bold">{userData.followers}</span><span
-              class="text-gray-400 px-2">followers</span
+              class="text-gray-400 px-2"
+              >follower{userData.followers > 1 ? "s" : ""}</span
             >
           </div>
           <div class="px-4">
@@ -108,20 +119,22 @@
         <div class="pt-2 text-gray-400 pb-2">
           {userData.bio}
         </div>
-        {#if isFollowing == true}
-          <button
-            class="border-2 border-red-500 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
-            on:click={unfollow}
-          >
-            Following
-          </button>
-        {:else}
-          <button
-            class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
-            on:click={follow}
-          >
-            Follow
-          </button>
+        {#if $user.username != username}
+          {#if isFollowing == true}
+            <button
+              class="border-2 border-red-500 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
+              on:click={unfollow}
+            >
+              Following
+            </button>
+          {:else}
+            <button
+              class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
+              on:click={follow}
+            >
+              Follow
+            </button>
+          {/if}
         {/if}
       </div>
     </div>
