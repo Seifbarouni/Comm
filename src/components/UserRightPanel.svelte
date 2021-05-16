@@ -1,8 +1,12 @@
 <script>
   import ExploreCommunities from "./ExploreCommunities.svelte";
   import { user } from "../stores";
+  import { onMount } from "svelte";
 
   export let username = "";
+  let userData = {};
+  let isFollowing = false;
+  let loading = false;
 
   function Logout() {
     user.set({
@@ -19,6 +23,49 @@
     localStorage.removeItem("exp_comm");
     localStorage.removeItem("is_member");
   }
+  function follow() {
+    isFollowing = !isFollowing;
+    userData.followers++;
+    fetch(`http://localhost:9000/follow/${$user.userId}/${userData.id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data != "Success") alert(data);
+      });
+  }
+  function unfollow() {
+    isFollowing = !isFollowing;
+    userData.followers--;
+  }
+  onMount(() => {
+    loading = true;
+    fetch(`http://localhost:9000/u/${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        userData = data;
+        fetch(
+          `http://localhost:9000/isFollowing/${$user.userId}/${userData.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${$user.jwt}`,
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => (isFollowing = data));
+      });
+    loading = false;
+  });
 </script>
 
 <div class=" 2xl:w-2/5 w-1/3  hidden lg:flex lg:flex-col">
@@ -30,39 +77,55 @@
       <img src="./img/user.svg" alt="user" />
     </button>
   </div>
-  <div class="mt-24 pt-1 pl-4  ">
-    <div class="text-gray-200 bg-gray-800 rounded-md p-2 pb-4 flex flex-col">
-      <div class=" flex items-center pt-2">
-        <div class="h-16 w-16 ">
-          <img src="./img/user.svg" alt="user" />
+  {#if loading == true}
+    <div class="flex items-center justify-center mt-36 mb-12">
+      <img src="./img/spinner.gif" alt="" class="h-14  w-14" />
+    </div>
+  {:else}
+    <div class="mt-24 pt-1 pl-4  ">
+      <div class="text-gray-200 bg-gray-800 rounded-md p-2 pb-4 flex flex-col">
+        <div class=" flex items-center pt-2">
+          <div class="h-16 w-16 ">
+            <img src="./img/user.svg" alt="user" />
+          </div>
+          <div class="flex flex-col px-2 text-sm ">
+            <span class="font-bold">{userData.username}</span>
+            <span class="text-gray-400">{userData.email}</span>
+          </div>
         </div>
-        <div class="flex flex-col px-2 text-sm ">
-          <span class="font-bold">{username}</span>
-          <span class="text-gray-400">@14d5s26s</span>
+        <div class="flex text-sm pt-2">
+          <div>
+            <span class="font-bold">{userData.followers}</span><span
+              class="text-gray-400 px-2">followers</span
+            >
+          </div>
+          <div class="px-4">
+            <span class="font-bold">{userData.following}</span><span
+              class="text-gray-400 px-2">following</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="flex text-sm pt-2">
-        <div>
-          <span class="font-bold">3.5k</span><span class="text-gray-400 px-2"
-            >followers</span
+        <div class="pt-2 text-gray-400 pb-2">
+          {userData.bio}
+        </div>
+        {#if isFollowing == true}
+          <button
+            class="border-2 border-red-500 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
+            on:click={unfollow}
           >
-        </div>
-        <div class="px-4">
-          <span class="font-bold">1k</span><span class="text-gray-400 px-2"
-            >following</span
+            Following
+          </button>
+        {:else}
+          <button
+            class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md focus:outline-none"
+            on:click={follow}
           >
-        </div>
-      </div>
-      <div class="pt-2 text-gray-400 pb-2">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium
-        ducimus tenetur officia ut, perferendis dolores eum! Voluptatum totam.
-      </div>
-      <div
-        class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md"
-      >
-        Follow
+            Follow
+          </button>
+        {/if}
       </div>
     </div>
-  </div>
+  {/if}
+
   <ExploreCommunities />
 </div>

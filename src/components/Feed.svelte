@@ -93,8 +93,9 @@
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
             <div class="text-gray-400">
-              Posted by <a href="#/u/seif" class="hover:underline">u/seif</a> 14
-              hours ago
+              Posted by <a href="#/u/sami barouni" class="hover:underline"
+                >u/sami barouni</a
+              > 14 hours ago
             </div>
           </div>
           <div id="txt" class="pt-1">
@@ -125,8 +126,9 @@
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
             <div class="text-gray-400">
-              Posted by <a href="#/u/sami" class="hover:underline">u/sami</a> 1 hour
-              ago
+              Posted by <a href="#/u/Geralt123" class="hover:underline"
+                >u/Geralt123</a
+              > 1 hour ago
             </div>
           </div>
           <div>
@@ -158,8 +160,9 @@
             </div>
             <div class="pr-1 pl-1 text-gray-400">.</div>
             <div class="text-gray-400">
-              Posted by <a href="#/u/mark" class="hover:underline">u/mark</a> 3 hours
-              ago
+              Posted by <a href="#/u/yennefer" class="hover:underline"
+                >u/yennefer</a
+              > 3 hours ago
             </div>
           </div>
           <div>
