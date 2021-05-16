@@ -41,7 +41,8 @@
       <div class="flex text-sm pt-2">
         <div>
           <span class="font-bold">{$user.followers}</span><span
-            class="text-gray-400 px-2">followers</span
+            class="text-gray-400 px-2"
+            >follower{$user.followers == 1 ? "" : "s"}</span
           >
         </div>
         <div class="px-4">
