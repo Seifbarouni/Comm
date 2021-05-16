@@ -16,6 +16,7 @@
     localStorage.removeItem("us");
     localStorage.removeItem("my_comm");
     localStorage.removeItem("exp_comm");
+    localStorage.removeItem("is_member");
   }
 </script>
 

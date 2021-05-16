@@ -1,5 +1,12 @@
 <script>
-  import { user, myCommunities, myExploreCommunities } from "../stores.js";
+  import { onMount } from "svelte";
+
+  import {
+    user,
+    myCommunities,
+    myExploreCommunities,
+    isMember,
+  } from "../stores.js";
   import Footer from "./Footer.svelte";
 
   export let communityName = "";
@@ -8,7 +15,6 @@
   export let createdAt;
   export let about;
   export let communityId;
-  export let isMember;
   let myComms = [];
   let myExploreComms = [];
 
@@ -30,7 +36,8 @@
   }
 
   function joinCommunity() {
-    isMember = !isMember;
+    $isMember = !$isMember;
+    members++;
     myComms = $myCommunities;
     myComms.push({
       id: communityId,
@@ -48,7 +55,8 @@
     updateLocalStorage();
   }
   function leaveCommunity() {
-    isMember = !isMember;
+    $isMember = !$isMember;
+    members--;
     myExploreComms = $myExploreCommunities;
     myExploreComms.push({
       id: communityId,
@@ -63,6 +71,9 @@
     makejRequest("http://localhost:9000/j/leaveCommunity");
     updateLocalStorage();
   }
+  onMount(() => {
+    $isMember = JSON.parse(localStorage.getItem("is_member"));
+  });
 
   function updateLocalStorage() {
     let cachedData = localStorage.getItem("my_comm");
@@ -73,6 +84,7 @@
     cachedData = JSON.parse(cachedData);
     cachedData.data = $myExploreCommunities;
     localStorage.setItem("exp_comm", JSON.stringify(cachedData));
+    localStorage.setItem("is_member", JSON.stringify($isMember));
   }
   function Logout() {
     user.set({
@@ -87,6 +99,7 @@
     localStorage.removeItem("us");
     localStorage.removeItem("my_comm");
     localStorage.removeItem("exp_comm");
+    localStorage.removeItem("is_member");
   }
 </script>
 
@@ -133,7 +146,7 @@
           <span class="font-bold text-lg">c/{communityName}</span>
           <span class="text-xs text-gray-400">c/{communityName}</span>
         </span>
-        {#if isMember == true}
+        {#if $isMember == true}
           <button
             class="border-2 border-red-500 px-6  py-1 rounded-2xl mt-1 mr-2 font-bold  focus:outline-none self-center absolute right-0"
             on:click={leaveCommunity}>Joined</button

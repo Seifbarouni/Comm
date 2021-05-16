@@ -27,7 +27,7 @@
 {#if $user.isAuthenticated}
   <LeftSidebar />
   <UserFeed user={params.username} />
-  <UserRightPanel user={params.username} />
+  <UserRightPanel username={params.username} />
 {:else}
   <LoginRegister />
 {/if}

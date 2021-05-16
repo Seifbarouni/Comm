@@ -12,5 +12,5 @@ export const user = writable({
     jwt: ""
 })
 export const myCommunities = writable([])
-//export const CommunityData = writable({})
 export const myExploreCommunities = writable([])
+export const isMember = writable(false)
