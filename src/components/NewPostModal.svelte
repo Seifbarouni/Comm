@@ -45,7 +45,7 @@
 
         <div class="mt-1 flex flex-col">
           <label for="files" class="py-1">Add image or video</label>
-          <input type="file" id="files" class="" />
+          <input type="file" id="files" class="" accept="image/*,video/*" />
         </div>
       </form>
       <div
