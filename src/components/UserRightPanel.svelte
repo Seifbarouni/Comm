@@ -36,6 +36,7 @@
       .then((data) => {
         if (data != "Success") alert(data);
       });
+    updateMyProfileData(1);
   }
   function unfollow() {
     isFollowing = !isFollowing;
@@ -48,8 +49,24 @@
     })
       .then((res) => res.json())
       .then((data) => {
-        alert(data);
+        if (data != "Success") alert(data);
       });
+    updateMyProfileData(0);
+  }
+
+  function updateMyProfileData(incOrDec) {
+    let cachedData = localStorage.getItem("us");
+    cachedData = JSON.parse(cachedData);
+    if (incOrDec == 1) {
+      cachedData.data.following++;
+      $user.following++;
+      console.log($user.following);
+    } else {
+      cachedData.data.following--;
+      $user.following--;
+      console.log($user.following);
+    }
+    localStorage.setItem("us", JSON.stringify(cachedData));
   }
   onMount(() => {
     loading = true;
