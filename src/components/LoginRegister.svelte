@@ -1,5 +1,6 @@
 <script>
   import { user } from "../stores";
+  import { fade } from "svelte/transition";
   let username = "";
   let password = "";
   let registerUsername = "";
@@ -85,7 +86,10 @@
   <title>Comm</title>
 </svelte:head>
 
-<div class="flex flex-col text-gray-200  justify-center items-center mt-6">
+<div
+  class="flex flex-col text-gray-200  justify-center items-center mt-6"
+  in:fade
+>
   <div class="text-red-500 pt-1 pr-2 h-36 w-36">
     <img src="./img/logo.png" alt="" />
   </div>
