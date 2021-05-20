@@ -1,5 +1,6 @@
 <script>
-  import { isOpen } from "../stores.js";
+  import { isOpen, user, myCommunities } from "../stores.js";
+  import moment from "moment";
 
   const unsubscribe = isOpen.subscribe((value) => {});
   let text = "";
@@ -9,11 +10,29 @@
     isOpen.set(false);
   }
   function handleSubmit() {
-    alert("test");
     let formData = new FormData();
-    // append file if not empty
-    // append post data
-    // make post request
+    if (files != undefined) formData.append("file", files[0]);
+    formData.append(
+      "postInput",
+      JSON.stringify({
+        community: community,
+        user: $user.username,
+        createdAt: moment().format("YYYY-MM-DD HH:m:s"),
+        textContent: text,
+      })
+    );
+    fetch("http://localhost:9000/p/addPost", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   }
 </script>
 
@@ -46,9 +65,10 @@
           required
           bind:value={community}
         >
-          <option value="entertainment">c/entertainment</option>
-          <option value="movies">c/movies</option>
-          <option value="imdb">c/imdb</option>
+          <option value="">Select community</option>
+          {#each $myCommunities as comm}
+            <option value={comm.name}>c/{comm.name}</option>
+          {/each}
         </select>
 
         <textarea

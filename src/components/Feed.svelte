@@ -1,7 +1,7 @@
 <script>
   import Footer from "./Footer.svelte";
   import NewPostModal from "./NewPostModal.svelte";
-  import { isOpen, user } from "../stores.js";
+  import { isOpen, user, myCommunities } from "../stores.js";
   import { onMount } from "svelte";
 
   let vid = "./videos/loki.mp4";
@@ -65,10 +65,12 @@
           class="bg-blue-500 px-4 py-2 mr-1  rounded-md font-bold hover:bg-blue-400 focus:outline-none"
           >Create community</button
         >
-        <button
-          class="bg-red-500 px-4 py-2  rounded-md font-bold hover:bg-red-400 focus:outline-none"
-          on:click|preventDefault={() => isOpen.set(true)}>New post</button
-        >
+        {#if $myCommunities.length != 0}
+          <button
+            class="bg-red-500 px-4 py-2  rounded-md font-bold hover:bg-red-400 focus:outline-none"
+            on:click|preventDefault={() => isOpen.set(true)}>New post</button
+          >
+        {/if}
       </div>
     </div>
 
