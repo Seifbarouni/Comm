@@ -12,26 +12,21 @@
   function handleSubmit() {
     let formData = new FormData();
     if (files != undefined) formData.append("file", files[0]);
-    formData.append(
-      "postInput",
-      JSON.stringify({
-        community: community,
-        user: $user.username,
-        createdAt: moment().format("YYYY-MM-DD HH:m:s"),
-        textContent: text,
-      })
-    );
-    fetch("http://localhost:9000/p/addPost", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${$user.jwt}`,
-      },
-      body: formData,
-    })
+    fetch(
+      `http://localhost:9000/p/addPost/${community}/${
+        $user.username
+      }/${moment().format("YYYY-MM-DD HH:m:s")}/${text}/`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${$user.jwt}`,
+        },
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data != "Success") alert(data);
       });
   }
 </script>
@@ -56,6 +51,7 @@
         action=""
         class="flex flex-col mt-2"
         on:submit|preventDefault={handleSubmit}
+        enctype="multipart/form-data"
       >
         <label for="comm">Choose a community:</label>
 
