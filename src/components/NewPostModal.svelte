@@ -6,10 +6,12 @@
   let text = "";
   let files;
   let community = "";
+  let loading = false;
   function closeSelf() {
     isOpen.set(false);
   }
   function handleSubmit() {
+    loading = true;
     let formData = new FormData();
     if (files != undefined) formData.append("file", files[0]);
     fetch(
@@ -28,6 +30,11 @@
       .then((data) => {
         if (data != "Success") alert(data);
       });
+    text = "";
+    files = null;
+    community = "";
+    loading = false;
+    isOpen.set(false);
   }
 </script>
 
@@ -43,66 +50,72 @@
       class="hidden sm:inline-block sm:align-middle sm:h-screen"
       aria-hidden="true">&#8203;</span
     >
-    <div
-      class="inline-block align-bottom bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-4"
-    >
-      <div class="font-bold text-lg">Add a new post</div>
-      <form
-        action=""
-        class="flex flex-col mt-2"
-        on:submit|preventDefault={handleSubmit}
-        enctype="multipart/form-data"
+    {#if loading == false}
+      <div
+        class="inline-block align-bottom bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-4"
       >
-        <label for="comm">Choose a community:</label>
-
-        <select
-          id="comm"
-          class="bg-gray-600 px-1 py-1 rounded-md focus:outline-none mt-1"
-          required
-          bind:value={community}
+        <div class="font-bold text-lg">Add a new post</div>
+        <form
+          action=""
+          class="flex flex-col mt-2"
+          on:submit|preventDefault={handleSubmit}
+          enctype="multipart/form-data"
         >
-          <option value="">Select community</option>
-          {#each $myCommunities as comm}
-            <option value={comm.name}>c/{comm.name}</option>
-          {/each}
-        </select>
+          <label for="comm">Choose a community:</label>
 
-        <textarea
-          cols="30"
-          rows="4"
-          class="bg-gray-600 mt-2 rounded-md px-1 py-1 focus:outline-none"
-          placeholder="Type whatever you want"
-          required
-          bind:value={text}
-        />
+          <select
+            id="comm"
+            class="bg-gray-600 px-1 py-1 rounded-md focus:outline-none mt-1"
+            required
+            bind:value={community}
+          >
+            <option value="">Select community</option>
+            {#each $myCommunities as comm}
+              <option value={comm.name}>c/{comm.name}</option>
+            {/each}
+          </select>
 
-        <div class="mt-1 flex flex-col">
-          <label for="files" class="py-1">Add image or video</label>
-          <input
-            type="file"
-            id="files"
-            name="files"
-            accept="image/*,video/*"
-            bind:files
+          <textarea
+            cols="30"
+            rows="4"
+            class="bg-gray-600 mt-2 rounded-md px-1 py-1 focus:outline-none"
+            placeholder="Type whatever you want"
+            required
+            bind:value={text}
           />
-        </div>
-        <div
-          class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse bg-gray-700"
-        >
-          <button
-            type="submit"
-            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium  hover:bg-red-400 focus:outline-none   focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-            >Post</button
+
+          <div class="mt-1 flex flex-col">
+            <label for="files" class="py-1">Add image or video</label>
+            <input
+              type="file"
+              id="files"
+              name="files"
+              accept="image/*,video/*"
+              bind:files
+            />
+          </div>
+          <div
+            class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse bg-gray-700"
           >
-          <button
-            type="button"
-            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset- sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-            on:click|preventDefault={closeSelf}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
+            <button
+              type="submit"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium  hover:bg-red-400 focus:outline-none   focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+              >Post</button
+            >
+            <button
+              type="button"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset- sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              on:click|preventDefault={closeSelf}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    {:else}
+      <div class="flex items-center justify-center mt-12">
+        <img src="./img/spinner.gif" alt="" class="h-14  w-14" />
+      </div>
+    {/if}
   </div>
 </div>
