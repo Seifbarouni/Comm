@@ -7,12 +7,29 @@
   import PostTextVideo from "./PostTextVideo.svelte";
 
   let loading = false;
-  //const unsubscribe = isOpen.subscribe(() => {});
+  let posts = [];
+
+  function getCommImgUrl(postComm) {
+    return $myCommunities.find((comm) => comm.name == postComm).imgUrl;
+  }
 
   onMount(() => {
     loading = true;
     $myCommunities.forEach((community) => {
-      // make the get request for posts in each community
+      fetch(`http://localhost:9000/p/getPosts/${community.name}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${$user.jwt}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((el) => posts.push(el));
+          posts = posts;
+          posts.sort((a, b) => {
+            return a.createdAt - b.createdAt;
+          });
+        });
     });
     loading = false;
   });
@@ -77,9 +94,44 @@
 
     {#if !loading}
       <div id="feed" class="pl-1 mt-6 flex flex-col ">
-        <PostTextOnly />
-        <PostTextImage />
-        <PostTextVideo />
+        {#each posts as post}
+          {#if post.image != null}
+            <PostTextImage
+              user={post.user}
+              community={post.community}
+              id={post.id}
+              createdAt={post.createdAt}
+              textContent={post.textContent}
+              image={post.image}
+              likes={post.likes}
+              comments={post.comments}
+              commImgUrl={getCommImgUrl(post.community)}
+            />
+          {:else if post.video != null}
+            <PostTextVideo
+              user={post.user}
+              community={post.community}
+              id={post.id}
+              createdAt={post.createdAt}
+              textContent={post.textContent}
+              video={post.video}
+              likes={post.likes}
+              comments={post.comments}
+              commImgUrl={getCommImgUrl(post.community)}
+            />
+          {:else}
+            <PostTextOnly
+              user={post.user}
+              community={post.community}
+              id={post.id}
+              createdAt={post.createdAt}
+              textContent={post.textContent}
+              likes={post.likes}
+              comments={post.comments}
+              commImgUrl={getCommImgUrl(post.community)}
+            />
+          {/if}
+        {/each}
       </div>
     {:else}
       <div class="flex items-center justify-center mt-12">
