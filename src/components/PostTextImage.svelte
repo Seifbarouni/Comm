@@ -25,7 +25,7 @@
     </div>
     <div class="pr-1 pl-1 text-gray-400">.</div>
     <div class="text-gray-400">
-      Posted by <a href="#/u/Geralt123" class="hover:underline"
+      Posted by <a href="#/u/{user}" class="hover:underline"
         >u/{user}
       </a>{createdAt}
     </div>

@@ -1,13 +1,14 @@
 <script>
   import { onMount } from "svelte";
-
+  import PostTextOnly from "./PostTextOnly.svelte";
+  import PostTextImage from "./PostTextImage.svelte";
+  import PostTextVideo from "./PostTextVideo.svelte";
   import {
     user,
     myCommunities,
     myExploreCommunities,
     isMember,
   } from "../stores.js";
-  import Footer from "./Footer.svelte";
 
   export let communityName = "";
   export let imgUrl;
@@ -17,6 +18,7 @@
   export let communityId;
   let myComms = [];
   let myExploreComms = [];
+  export let communityPosts = [];
 
   function makejRequest(url) {
     fetch(`${url}/${communityId}/${$user.userId}`, {
@@ -71,6 +73,7 @@
     makejRequest("http://localhost:9000/j/leaveCommunity");
     updateLocalStorage();
   }
+
   onMount(() => {
     $isMember = JSON.parse(localStorage.getItem("is_member"));
   });
@@ -206,62 +209,46 @@
       </div>
     </div>
   </div>
-  <a
-    href="#/c/{communityName}/p/s12dsqdxxf45s"
-    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
-  >
-    <div id="header" class="flex items-center text-sm">
-      <div class="flex items-center">
-        <div class="h-6 w-6 rounded-full flex justify-center">
-          <img src={imgUrl} class=" object-cover rounded-full" alt="" />
-        </div>
-        <a href="#/c/{communityName}" class="px-1 hover:underline"
-          >c/{communityName}</a
-        >
-      </div>
-      <div class="pr-1 pl-1 text-gray-400">.</div>
-      <div class="text-gray-400">
-        Posted by <a href="#/u/seif" class="hover:underline">u/seif</a> 14 hours
-        ago
-      </div>
-    </div>
-    <div id="txt" class="pt-1">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-      <a
-        href="https://yts.mx/"
-        target="_blank"
-        class="text-blue-600 hover:underline">https://yts.mx/</a
-      >
-    </div>
-    <Footer likes="2.4k" comments="1k" />
-  </a>
-  <a
-    href="#/c/{communityName}/p/s12dsf45sd4s"
-    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
-  >
-    <div id="header" class="flex items-center text-sm">
-      <div class="flex items-center">
-        <div class="h-6 w-6 rounded-full flex justify-center">
-          <img src={imgUrl} class=" object-cover rounded-full" alt="" />
-        </div>
-        <a href="#/c/{communityName}" class="px-1 hover:underline"
-          >c/{communityName}</a
-        >
-      </div>
-      <div class="pr-1 pl-1 text-gray-400">.</div>
-      <div class="text-gray-400">
-        Posted by <a href="#/u/mark" class="hover:underline">u/mark</a> 14 hours
-        ago
-      </div>
-    </div>
-    <div id="txt" class="pt-1">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-      <a
-        href="https://yts.mx/"
-        target="_blank"
-        class="text-blue-600 hover:underline">https://yts.mx/</a
-      >
-    </div>
-    <Footer likes="2.4k" comments="1k" />
-  </a>
+  <div class="pl-1 mt-2 pr-1 flex flex-col text-gray-200">
+    {#each communityPosts as post}
+      {#if post.image != null}
+        <PostTextImage
+          user={post.user}
+          community={post.community}
+          id={post.id}
+          createdAt={post.createdAt}
+          textContent={post.textContent}
+          image={post.image}
+          likes={post.likes}
+          comments={post.comments}
+          commImgUrl={imgUrl}
+        />
+      {:else if post.video != null}
+        <PostTextVideo
+          user={post.user}
+          community={post.community}
+          id={post.id}
+          createdAt={post.createdAt}
+          textContent={post.textContent}
+          video={post.video}
+          likes={post.likes}
+          comments={post.comments}
+          commImgUrl={imgUrl}
+        />
+      {:else}
+        <PostTextOnly
+          user={post.user}
+          community={post.community}
+          id={post.id}
+          createdAt={post.createdAt}
+          textContent={post.textContent}
+          likes={post.likes}
+          comments={post.comments}
+          commImgUrl={imgUrl}
+        />
+      {/if}
+    {:else}
+      <div class="text-center">No posts</div>
+    {/each}
+  </div>
 </div>

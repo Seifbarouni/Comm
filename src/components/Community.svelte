@@ -11,6 +11,8 @@
   let myHeaders = new Headers();
   let loading = false;
   let commName = params.community;
+  let communityPosts = [];
+
   async function getCommunity() {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${$user.jwt}`);
@@ -27,6 +29,19 @@
     else $isMember = false;
     localStorage.setItem("is_member", JSON.stringify($isMember));
   }
+  function getPostsByCommunity() {
+    fetch(`http://localhost:9000/p/getPosts/${params.community}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$user.jwt}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        communityPosts = data;
+        communityPosts = communityPosts;
+      });
+  }
   onMount(() => {
     loading = true;
     window.scrollTo(0, 0);
@@ -42,6 +57,7 @@
       commData = data;
     });
     checkIfMember();
+    getPostsByCommunity();
     loading = false;
   });
   $: {
@@ -55,6 +71,7 @@
       .then((res) => res.json())
       .then((data) => (commData = data));
     checkIfMember();
+    getPostsByCommunity();
     loading = false;
   }
 </script>
@@ -64,7 +81,7 @@
 </svelte:head>
 
 {#if $user.isAuthenticated}
-  <LeftSidebar />
+  <LeftSidebar margin="mt-6" />
   {#if !loading}
     <CommunityFeed
       communityName={params.community}
@@ -73,6 +90,7 @@
       members={commData.members}
       about={commData.about}
       communityId={commData.id}
+      {communityPosts}
     />
   {:else}
     <div class="flex items-center justify-center 2xl:w-3/5">

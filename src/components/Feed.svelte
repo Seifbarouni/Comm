@@ -1,12 +1,11 @@
 <script>
   import NewPostModal from "./NewPostModal.svelte";
-  import { isOpen, user, myCommunities } from "../stores.js";
+  import { isOpen, user, myCommunities, myFeed } from "../stores.js";
   import { onMount } from "svelte";
   import PostTextOnly from "./PostTextOnly.svelte";
   import PostTextImage from "./PostTextImage.svelte";
   import PostTextVideo from "./PostTextVideo.svelte";
 
-  let loading = false;
   let posts = [];
 
   function getCommImgUrl(postComm) {
@@ -14,7 +13,6 @@
   }
 
   onMount(() => {
-    loading = true;
     $myCommunities.forEach((community) => {
       fetch(`http://localhost:9000/p/getPosts/${community.name}`, {
         headers: {
@@ -25,13 +23,12 @@
         .then((res) => res.json())
         .then((data) => {
           data.forEach((el) => posts.push(el));
-          posts = posts;
           posts.sort((a, b) => {
             return a.createdAt - b.createdAt;
           });
+          $myFeed = posts;
         });
     });
-    loading = false;
   });
   function Logout() {
     user.set({
@@ -92,9 +89,9 @@
       </div>
     </div>
 
-    {#if !loading}
+    {#if $myFeed != []}
       <div id="feed" class="pl-1 mt-6 flex flex-col ">
-        {#each posts as post}
+        {#each $myFeed as post}
           {#if post.image != null}
             <PostTextImage
               user={post.user}

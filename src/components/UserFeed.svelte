@@ -1,6 +1,25 @@
 <script>
-  export let user = "";
-  import Footer from "./Footer.svelte";
+  import { myCommunities, myExploreCommunities } from "../stores";
+  import PostTextOnly from "./PostTextOnly.svelte";
+  import PostTextImage from "./PostTextImage.svelte";
+  import PostTextVideo from "./PostTextVideo.svelte";
+  import { onMount } from "svelte";
+
+  export let userPosts = [];
+  let loading = false;
+
+  function getCommImgUrl(postComm) {
+    let x = $myCommunities.find((comm) => comm.name == postComm).imgUrl;
+    if (x != undefined) return x;
+    return $myExploreCommunities.find((comm) => comm.name == postComm).imgUrl;
+  }
+
+  onMount(() => {
+    loading = true;
+    setTimeout(() => {
+      loading = false;
+    }, 400);
+  });
 </script>
 
 <div class=" 2xl:w-3/5 w-full flex flex-col mb-2">
@@ -20,59 +39,52 @@
       <img src="./img/user.svg" alt="user" />
     </div>
   </div>
-
-  <a
-    href="#/c/entertainment/p/s12dsfsdf45s"
-    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-16"
-  >
-    <div id="header" class="flex items-center text-sm">
-      <div class="flex items-center">
-        <div class="h-6 w-6 bg-indigo-400 rounded-full" />
-        <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/entertainment</a
-        >
+  <div class="pl-1 mt-14 pr-1 flex flex-col text-gray-200">
+    {#if !loading}
+      {#each userPosts as post}
+        {#if post.image != null}
+          <PostTextImage
+            user={post.user}
+            community={post.community}
+            id={post.id}
+            createdAt={post.createdAt}
+            textContent={post.textContent}
+            image={post.image}
+            likes={post.likes}
+            comments={post.comments}
+            commImgUrl={getCommImgUrl(post.community)}
+          />
+        {:else if post.video != null}
+          <PostTextVideo
+            user={post.user}
+            community={post.community}
+            id={post.id}
+            createdAt={post.createdAt}
+            textContent={post.textContent}
+            video={post.video}
+            likes={post.likes}
+            comments={post.comments}
+            commImgUrl={getCommImgUrl(post.community)}
+          />
+        {:else}
+          <PostTextOnly
+            user={post.user}
+            community={post.community}
+            id={post.id}
+            createdAt={post.createdAt}
+            textContent={post.textContent}
+            likes={post.likes}
+            comments={post.comments}
+            commImgUrl={getCommImgUrl(post.community)}
+          />
+        {/if}
+      {:else}
+        <div class="text-center">No posts</div>
+      {/each}
+    {:else}
+      <div class="flex items-center justify-center">
+        <img src="./img/spinner.gif" alt="" class="h-14  w-14" />
       </div>
-      <div class="pr-1 pl-1 text-gray-400">.</div>
-      <div class="text-gray-400">
-        Posted by <a href="#/u/{user}" class="hover:underline">u/{user}</a> 14 hours
-        ago
-      </div>
-    </div>
-    <div id="txt" class="pt-1">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-      <a
-        href="https://yts.mx/"
-        target="_blank"
-        class="text-blue-600 hover:underline">https://yts.mx/</a
-      >
-    </div>
-    <Footer likes="2.4k" comments="1k" />
-  </a>
-  <a
-    href="#/c/entertainment/p/s12dsf45s"
-    class="bg-gray-800 hover:bg-gray-700 cursor-pointer  p-2 rounded-md text-gray-200 mr-1 ml-1 mt-2"
-  >
-    <div id="header" class="flex items-center text-sm">
-      <div class="flex items-center">
-        <div class="h-6 w-6 bg-indigo-400 rounded-full" />
-        <a href="#/c/entertainment" class="px-1 hover:underline"
-          >c/entertainment</a
-        >
-      </div>
-      <div class="pr-1 pl-1 text-gray-400">.</div>
-      <div class="text-gray-400">
-        Posted by <a href="#/u/{user}" class="hover:underline">u/{user}</a> 14 hours
-        ago
-      </div>
-    </div>
-    <div id="txt" class="pt-1">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-      <a
-        href="https://yts.mx/"
-        target="_blank"
-        class="text-blue-600 hover:underline">https://yts.mx/</a
-      >
-    </div>
-    <Footer likes="2.4k" comments="1k" />
-  </a>
+    {/if}
+  </div>
 </div>

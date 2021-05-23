@@ -13,4 +13,5 @@ export const user = writable({
 })
 export const myCommunities = writable([])
 export const myExploreCommunities = writable([])
+export const myFeed = writable([])
 export const isMember = writable(false)
