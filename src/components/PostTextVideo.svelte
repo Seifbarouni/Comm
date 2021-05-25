@@ -9,11 +9,12 @@
   export let likes;
   export let video;
   export let comments;
+  export let hover = "";
 </script>
 
 <a
   href="#/c/{community}/p/{id}"
-  class="bg-gray-800 hover:bg-gray-700 cursor-pointer mt-2 p-2 rounded-md"
+  class="bg-gray-800 {hover} cursor-pointer mt-2 p-2 rounded-md"
 >
   <div id="header" class="flex items-center text-sm">
     <div class="flex items-center">

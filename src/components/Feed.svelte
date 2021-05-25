@@ -103,6 +103,7 @@
               likes={post.likes}
               comments={post.comments}
               commImgUrl={getCommImgUrl(post.community)}
+              hover="hover:bg-gray-700"
             />
           {:else if post.video != null}
             <PostTextVideo
@@ -115,6 +116,7 @@
               likes={post.likes}
               comments={post.comments}
               commImgUrl={getCommImgUrl(post.community)}
+              hover="hover:bg-gray-700"
             />
           {:else}
             <PostTextOnly
@@ -126,6 +128,7 @@
               likes={post.likes}
               comments={post.comments}
               commImgUrl={getCommImgUrl(post.community)}
+              hover="hover:bg-gray-700"
             />
           {/if}
         {/each}

@@ -1,8 +1,21 @@
 <script>
   import ExploreCommunities from "./ExploreCommunities.svelte";
-  import { user } from "../stores";
+  import {
+    user,
+    myCommunities,
+    myExploreCommunities,
+    isMember,
+  } from "../stores";
+  import { onMount } from "svelte";
 
-  export let community = "community";
+  export let community = "";
+  let comm = {};
+  function getComm(community) {
+    comm = $myCommunities.find((comm) => comm.name == community);
+    if (comm == undefined)
+      comm = $myExploreCommunities.find((comm) => comm.name == community);
+  }
+
   function Logout() {
     user.set({
       isAuthenticated: false,
@@ -18,6 +31,9 @@
     localStorage.removeItem("exp_comm");
     localStorage.removeItem("is_member");
   }
+  onMount(() => {
+    getComm(community);
+  });
 </script>
 
 <div class=" 2xl:w-2/5 w-1/3  hidden lg:flex lg:flex-col">
@@ -32,26 +48,22 @@
   <div class="mt-24 pt-1 pl-4 ">
     <div class="text-gray-200 bg-gray-800 rounded-md p-2 flex flex-col">
       <div class=" flex items-center pt-2">
-        <div class="h-16 w-16 rounded-full bg-yellow-300" />
+        <div class="h-16 w-16 rounded-full flex justify-center ml-1">
+          <img src={comm.imgUrl} class=" object-cover rounded-full" alt="" />
+        </div>
         <div class="flex flex-col px-2 text-sm">
-          <a href="#/c/community" class="font-bold hover:underline"
-            >c/{community}</a
+          <a href="#/c/{comm.name}" class="font-bold hover:underline"
+            >c/{comm.name}</a
           >
         </div>
       </div>
       <div class="pt-2 text-gray-400">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, fugiat
-        quasi ...
+        {comm.about}
       </div>
       <div class="flex text-sm pt-2">
         <div>
-          <span class="font-bold">3.5k</span><span class="text-gray-400 px-2"
-            >members</span
-          >
-        </div>
-        <div class="px-4">
-          <span class="font-bold">400</span><span class="text-gray-400 px-2"
-            >online</span
+          <span class="font-bold">{comm.members} </span><span
+            class="text-gray-400 px-2">members</span
           >
         </div>
       </div>
@@ -72,13 +84,21 @@
             /></svg
           >
         </span>
-        <span>Created Sep 17, 2007</span>
+        <span>Created {comm.createdAt}</span>
       </span>
-      <div
-        class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md mb-2"
-      >
-        Join
-      </div>
+      {#if $isMember == true}
+        <div
+          class="border-2 border-red-500 cursor-pointer  text-center px-1 py-1 rounded-md mb-2"
+        >
+          Joined
+        </div>
+      {:else}
+        <div
+          class="bg-red-500 hover:bg-red-400 cursor-pointer  text-center px-1 py-1 rounded-md mb-2"
+        >
+          Join
+        </div>
+      {/if}
     </div>
   </div>
   <ExploreCommunities />
