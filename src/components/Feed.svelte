@@ -23,6 +23,7 @@
         .then((res) => res.json())
         .then((data) => {
           data.forEach((el) => posts.push(el));
+          posts = posts;
           posts.sort((a, b) => {
             return a.createdAt - b.createdAt;
           });
