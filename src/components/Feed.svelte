@@ -27,7 +27,7 @@
           posts.sort((a, b) => {
             return a.createdAt - b.createdAt;
           });
-          $myFeed = posts;
+          myFeed.set(posts);
         });
     });
   });
