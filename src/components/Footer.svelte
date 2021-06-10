@@ -2,6 +2,7 @@
   export let likes = 0;
   export let comments = 0;
   export let isComment = false;
+  export let id;
 </script>
 
 <div id="footer" class="flex items-center pt-3">

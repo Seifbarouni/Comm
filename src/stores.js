@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const isOpen = writable(false);
+export const isLogoutOpen = writable(false);
 export const user = writable({
     isAuthenticated: false,
     username: "",

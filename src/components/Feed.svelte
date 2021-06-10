@@ -5,6 +5,7 @@
   import PostTextOnly from "./PostTextOnly.svelte";
   import PostTextImage from "./PostTextImage.svelte";
   import PostTextVideo from "./PostTextVideo.svelte";
+  import LogoutorProfileFeed from "./LogoutorProfileFeed.svelte";
 
   let posts = [];
 
@@ -22,8 +23,10 @@
       })
         .then((res) => res.json())
         .then((data) => {
-          data.forEach((el) => posts.push(el));
-          posts = posts;
+          data.forEach((el) => {
+            posts.push(el);
+            posts = posts;
+          });
           posts.sort((a, b) => {
             return a.createdAt - b.createdAt;
           });
@@ -31,21 +34,6 @@
         });
     });
   });
-  function Logout() {
-    user.set({
-      isAuthenticated: false,
-      username: "",
-      userId: 0,
-      bio: "",
-      followers: 0,
-      following: 0,
-      jwt: "",
-    });
-    localStorage.removeItem("us");
-    localStorage.removeItem("my_comm");
-    localStorage.removeItem("exp_comm");
-    localStorage.removeItem("is_member");
-  }
 </script>
 
 {#if $isOpen}
@@ -64,13 +52,7 @@
         placeholder="Search for users or communities"
       />
     </div>
-
-    <button
-      class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden focus:outline-none"
-      on:click={Logout}
-    >
-      <img src="./img/user.svg" alt="user" />
-    </button>
+    <LogoutorProfileFeed />
   </div>
 
   <div class="mt-16  text-gray-200  pr-1  flex flex-col  justify-between pb-2">

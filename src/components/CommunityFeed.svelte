@@ -9,6 +9,7 @@
     myExploreCommunities,
     isMember,
   } from "../stores.js";
+  import LogoutorProfileFeed from "./LogoutorProfileFeed.svelte";
 
   export let communityName = "";
   export let imgUrl;
@@ -119,12 +120,7 @@
       />
     </div>
 
-    <button
-      class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden focus:outline-none"
-      on:click={Logout}
-    >
-      <img src="./img/user.svg" alt="user" />
-    </button>
+    <LogoutorProfileFeed />
   </div>
   <div
     class="mt-16 mb-2  text-gray-200  flex flex-col  justify-between pb-2 px-1"

@@ -13,6 +13,7 @@
     isMember,
   } from "../stores";
   import { onMount } from "svelte";
+  import LogoutorProfileFeed from "./LogoutorProfileFeed.svelte";
 
   export let params = {};
   let post;
@@ -102,12 +103,7 @@
         />
       </div>
 
-      <button
-        class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden focus:outline-none"
-        on:click={Logout}
-      >
-        <img src="./img/user.svg" alt="user" />
-      </button>
+      <LogoutorProfileFeed />
     </div>
 
     <div class="bg-gray-800  cursor-pointer mt-16 rounded-md flex flex-col">

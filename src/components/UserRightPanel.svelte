@@ -2,6 +2,7 @@
   import ExploreCommunities from "./ExploreCommunities.svelte";
   import { user } from "../stores";
   import { onMount } from "svelte";
+  import LogoutorProfile from "./LogoutorProfile.svelte";
 
   export let username = "";
   let userData = {};
@@ -96,14 +97,7 @@
 </script>
 
 <div class=" 2xl:w-2/5 w-1/3  hidden lg:flex lg:flex-col">
-  <div class=" pt-7 flex relative">
-    <button
-      class="h-8 w-8  rounded-full right-0 absolute focus:outline-none"
-      on:click={Logout}
-    >
-      <img src="./img/user.svg" alt="user" />
-    </button>
-  </div>
+  <LogoutorProfile />
   {#if loading == true}
     <div class="flex items-center justify-center mt-36 mb-12">
       <img src="./img/spinner.gif" alt="" class="h-14  w-14" />

@@ -4,6 +4,7 @@
   import PostTextImage from "./PostTextImage.svelte";
   import PostTextVideo from "./PostTextVideo.svelte";
   import { onMount } from "svelte";
+  import LogoutorProfileFeed from "./LogoutorProfileFeed.svelte";
 
   export let userPosts = [];
   let loading = false;
@@ -35,9 +36,7 @@
       />
     </div>
 
-    <div class="pl-2 h-10 w-10 pt-1 rounded-full  lg:hidden">
-      <img src="./img/user.svg" alt="user" />
-    </div>
+    <LogoutorProfileFeed />
   </div>
   <div class="pl-1 mt-14 pr-1 flex flex-col text-gray-200">
     {#if !loading}
