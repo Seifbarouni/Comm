@@ -37,5 +37,5 @@
       <img src="data:image/jpeg;base64,{image}" alt="" />
     </div>
   </div>
-  <Footer {likes} {comments} />
+  <Footer {likes} {comments} {id} />
 </a>

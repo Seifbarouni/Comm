@@ -31,5 +31,5 @@
   <div id="txt" class="pt-1">
     {textContent}
   </div>
-  <Footer {likes} {comments} />
+  <Footer {likes} {comments} {id} />
 </a>

@@ -39,5 +39,5 @@
       <video src="data:video/mp4;base64,{video}" controls autoplay muted />
     </div>
   </div>
-  <Footer {likes} {comments} />
+  <Footer {likes} {comments} {id} />
 </a>
