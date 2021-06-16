@@ -26,11 +26,11 @@
           data.forEach((el) => {
             posts.push(el);
             posts = posts;
+            myFeed.set(posts);
           });
           posts.sort((a, b) => {
             return a.createdAt - b.createdAt;
           });
-          myFeed.set(posts);
         });
     });
   });
